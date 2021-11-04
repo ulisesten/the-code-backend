@@ -1,3 +1,5 @@
+/**Testing */
+
 const PublicationsController = (app) => {
 
     app.get('/api/publications', (request, reply) => {
