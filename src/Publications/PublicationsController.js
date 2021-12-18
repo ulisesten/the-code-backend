@@ -1,6 +1,6 @@
 /**Testing */
 
-const PublicationsController = (app) => {
+const PublicationsController = (app, opts, done) => {
 
     app.get('/api/publications', (request, reply) => {
         reply.header('Content-Type', 'application/json; charset=utf-8')
@@ -17,7 +17,8 @@ const PublicationsController = (app) => {
         reply.send({
             "hello": "controller",
             "method": "get",
-            "mode": "one by id"
+            "mode": "one by id",
+            "id": request.params.id
         });
         
     });
@@ -51,6 +52,8 @@ const PublicationsController = (app) => {
         });
         
     });
+
+    done();
 
 }
 

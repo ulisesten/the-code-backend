@@ -1,13 +1,16 @@
 'use strict'
 
+/**Unused by now*/
+
 import fastify from 'fastify';
 import { readFile } from 'fs';
-import publicationsController from '../components/Publications/PublicationsController.js';
+import publicationsController from '../src/Publications/PublicationsController.js';
+
 
 const build = (opts={}) => {
     const app = fastify(opts)
 
-    publicationsController(app);
+    //publicationsController(app);
 
     app.get('/', (request, reply) => {
     
