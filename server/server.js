@@ -21,7 +21,7 @@ server.register(PublicationsController)*/
 
 
 server.register(fastifyCors, {
-    origin: ['http://localhost:3000', 'https://the-code-react.herokuapp.com'],
+    origin: 'https://the-code-react.herokuapp.com',
     optionsSuccessStatus: 200 
 })
 
