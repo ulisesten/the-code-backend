@@ -1,4 +1,4 @@
-import server from '../src/Main.js';
+import server from '../server/app.js';
 
 describe('Testing controllers', () => {
 

@@ -10,8 +10,8 @@ const CoursesController = (app, opts, done) => {
 const getAllCourses = (request, reply) => {
     reply.header('Content-Type', 'application/json; charset=utf-8');
     reply.send([
-        {"course": "C", "id": "a98a9fd"},
-        {"course": "CPP", "id": "a98sdfd"}
+        {"name": "Curso de C", "lang": "C", "id": "a98a9fd"},
+        {"name": "Curso de C++","lang": "CPP", "id": "a98sdfd"}
     ]);
 }
 

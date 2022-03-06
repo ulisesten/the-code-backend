@@ -1,27 +1,13 @@
-//import app from './app.js';
-//import fastify from 'fastify';
 import fastifyCors from 'fastify-cors';
-//import PublicationsController from '../src/Publications/PublicationsController.js';
-import server from '../src/Main.js'
+import server from './app.js'
 
 const PORT   = process.env.PORT || 8081;
 const ADRESS = process.env.IP   || '0.0.0.0';
 
-/*const opts = {
-    logger: {
-      level: 'info',
-      prettyPrint: true
-    }
-};
-
-const server = fastify(opts);
-
-server.register(PublicationsController)*/
-
-
 
 server.register(fastifyCors, {
-    origin: 'https://the-code-react.herokuapp.com',
+    //origin: ['https://the-code-react.herokuapp.com','http://localhost:8080', 'http://localhost:41925/'],
+    otigin: '*',
     optionsSuccessStatus: 200 
 })
 

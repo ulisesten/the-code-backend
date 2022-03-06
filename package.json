@@ -7,14 +7,17 @@
   "scripts": {
     "start": "node server/server.js",
     "config-test": "jest --init",
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon server/server.js"
   },
   "author": "ulisesten",
   "license": "ISC",
   "dependencies": {
+    "assert": "^2.0.0",
     "fastify": "^3.19.1",
     "fastify-cors": "^6.0.2",
     "jest": "^27.4.5",
+    "mongodb": "^4.2.2",
     "pino-pretty": "^5.1.1",
     "superagent": "^6.1.0",
     "supertest": "^6.1.3",
@@ -24,6 +27,8 @@
     "@babel/core": "^7.16.5",
     "@babel/node": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
+    "@shelf/jest-mongodb": "^2.2.0",
+    "nodemon": "^2.0.15",
     "ts-node": "^10.4.0"
   }
 }

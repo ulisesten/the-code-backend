@@ -8,6 +8,7 @@ const UserController = (app, opts, done) => {
     done();
 }
 
+
 const getUser = (request, reply) => {
     //Required authentication
 

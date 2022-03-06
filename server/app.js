@@ -1,37 +1,34 @@
-'use strict'
-
-/**Unused by now*/
-
 import fastify from 'fastify';
-import { readFile } from 'fs';
-import publicationsController from '../src/Publications/PublicationsController.js';
+import MongoDB from 'mongodb';
+import assert from 'assert';
+import PublicationsController from '../src/Publications/PublicationsController.js';
+import CoursesController from '../src/Courses/CoursesController.js';
+import UserController from '../src/Users/UserController.js';
+
+const opts = {
+    logger: {
+      level: 'info',
+      prettyPrint: true
+    }
+};
 
 
-const build = (opts={}) => {
-    const app = fastify(opts)
+const server = fastify(opts);
 
-    //publicationsController(app);
-
-    app.get('/', (request, reply) => {
-    
-        readFile('./view/html/home.html', (err, fileBuffer) => {
-            reply.header('Content-Type', 'text/html; charset=utf-8')
-            reply.send( err || fileBuffer );
-        });
-
-    });
+const url = process.env.MONGO_URL || 'mongodb+srv://trackitdb:KvFwYaQRzEDa0qVK@cluster0-ahslu.mongodb.net/trackitdb?retryWrites=true&w=majority';
 
 
-    app.get('/css/header.css',(request, reply) => {
+//MongoDB.MongoClient.connect(url, (err, db) => {
 
-        readFile('./view/css/header.css', (err, fileBuffer) => {
-            reply.header('Content-Type', 'text/css')
-            reply.send( err || fileBuffer );
-        });
+  //  assert.equal(null, err);
+  let db = 'db'
 
-    });
+    server.register(PublicationsController, db);
+    server.register(CoursesController     , db);
+    server.register(UserController        , db);
 
-    return app;
-}
+    //db.close();
+//})
 
-export default build;
+
+export default server;
