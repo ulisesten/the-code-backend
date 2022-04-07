@@ -1,9 +1,14 @@
+
 import fastify from 'fastify';
-import MongoDB from 'mongodb';
-import assert from 'assert';
-import PublicationsController from '../src/Publications/PublicationsController.js';
-import CoursesController from '../src/Courses/CoursesController.js';
-import UserController from '../src/Users/UserController.js';
+
+import PublicationsController  from '../src/Controllers/Publications/PublicationsController.js';
+import CoursesController       from '../src/Controllers/Courses/CoursesController.js';
+import UserController          from '../src/Controllers/Users/UserController.js';
+import SyllabusController      from '../src/Controllers/Syllabus/SyllabusController.js';
+import CourseContentController from '../src/Controllers/CourseContent/CourseContentController.js'
+
+import db from '../Database/connect.js';
+import { notFound } from '../src/Utils/Decorators.js';
 
 const opts = {
     logger: {
@@ -12,23 +17,18 @@ const opts = {
     }
 };
 
-
 const server = fastify(opts);
 
-const url = process.env.MONGO_URL || 'mongodb+srv://trackitdb:KvFwYaQRzEDa0qVK@cluster0-ahslu.mongodb.net/trackitdb?retryWrites=true&w=majority';
+server.decorate('db', db);
+
+server.decorateReply('notFound', notFound);
 
 
-//MongoDB.MongoClient.connect(url, (err, db) => {
-
-  //  assert.equal(null, err);
-  let db = 'db'
-
-    server.register(PublicationsController, db);
-    server.register(CoursesController     , db);
-    server.register(UserController        , db);
-
-    //db.close();
-//})
+server.register( PublicationsController  );
+server.register( CoursesController       );
+server.register( UserController          );
+server.register( SyllabusController      );
+server.register( CourseContentController );
 
 
 export default server;

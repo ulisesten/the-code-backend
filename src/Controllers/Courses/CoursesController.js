@@ -1,18 +1,30 @@
 /**Ulisesten at Dec 18, 2021 */
 
+import CourseModel from './CoursesModel.js';
+
 const CoursesController = (app, opts, done) => {
+
     app.get('/api/courses', getAllCourses);
     app.get('/api/courses/:id', getOneCourse);
 
     done();
 }
 
-const getAllCourses = (request, reply) => {
-    reply.header('Content-Type', 'application/json; charset=utf-8');
-    reply.send([
-        {"name": "Curso de C", "lang": "C", "id": "a98a9fd"},
-        {"name": "Curso de C++","lang": "CPP", "id": "a98sdfd"}
-    ]);
+///Avoiding arrow function to preserve fastify decoration object
+function getAllCourses(request, reply) {
+    
+    CourseModel.find(null, (err, doc) => {
+        
+        if(err) {
+            reply.notFound(err);
+            return
+        }
+        
+        reply.header('Content-Type', 'application/json; charset=utf-8');
+        reply.send(doc);
+
+    })
+   
 }
 
 const getOneCourse = (request, reply) => {
