@@ -1,7 +1,7 @@
 //var mongoose = require('mongoose');
 import mongoose from 'mongoose';
 
-var mongoURL = process.env.MONGO_URL;// || 'mongodb+srv://code-dev_admin:NnC0SkEMYqjMJ47f@cluster0.ahslu.mongodb.net/code-dev?retryWrites=true&w=majority'//'mongodb://localhost:27017/nekidb';
+var mongoURL = process.env.MONGO_URL;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoURL,{ useNewUrlParser: true, useUnifiedTopology: true }, function (err) {
