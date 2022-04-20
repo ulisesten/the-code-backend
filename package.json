@@ -16,6 +16,7 @@
     "assert": "^2.0.0",
     "fastify": "^3.19.1",
     "fastify-cors": "^6.0.2",
+    "fastify-swagger": "^5.1.1",
     "jest": "^27.4.5",
     "mongodb": "^4.2.2",
     "mongoose": "^6.2.10",
@@ -29,6 +30,7 @@
     "@babel/node": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@shelf/jest-mongodb": "^2.2.0",
+    "dotenv": "^16.0.0",
     "nodemon": "^2.0.15",
     "ts-node": "^10.4.0"
   }
