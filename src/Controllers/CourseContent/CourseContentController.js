@@ -5,36 +5,59 @@ import CourseContentModel from "./CourseContentModel.js";
 const CourseContentController = (app, opts, done) => {
 
     app.get('/api/contents/:id', getContent);
-    //app.post('/api/contents/:id', setContent);
+    app.post('/api/contents/', setContent);
 
     done();
 }
 
 function getContent(request, reply) {
-    const query = { id: request.params.id };
 
-    CourseContentModel.findOne( query , (err, doc) => {
-        
-        if(err) {
-            reply.notFound(err);
-            return
-        }
-        
-        reply.header('Content-Type', 'application/json; charset=utf-8');
-        reply.send(doc);
+    try {
 
-    })
+        if(!request.params.id) throw new Error('No id parameter');
+        
+        const query = { id: request.params.id };
+
+        CourseContentModel.findOne( query , (err, doc) => {
+            
+            if(err) throw err
+            
+            reply.header('Content-Type', 'application/json; charset=utf-8');
+            reply.send(doc);
+
+        });
+
+    } catch( error ) {
+
+        console.log('ContentController', error);
+        reply.send({result: "Something went wrong!"});
+
+    }
     
 }
 
-const setContent = (request, reply) => {
+function setContent(request, reply){
     
+    try {
+        let courseContentModel = new CourseContentModel(request.body);
+        
+        courseContentModel.save((err, res) => {
+            if(err){
+                console.log("Error!!!!", err);
+                return
+            }
 
-    reply.header('Content-Type', 'application/json; charset=utf-8');
-    reply.send({
-        "id": request.params.id,
-        "content": "contents"
-    });
+            reply.header('Content-Type', 'application/json; charset=utf-8');
+        
+            reply.send({
+                "result": "Se guardó correctamente"
+            });
+        });
+
+    } catch ( error ){
+
+    }
+    
 }
 
 export default CourseContentController;
