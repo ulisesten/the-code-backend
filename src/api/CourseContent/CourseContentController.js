@@ -22,8 +22,6 @@ const CourseContentController = (app, opts, done) => {
 
 /**
  * 
- * @param {*} request 
- * @param {*} reply 
  */
 function getContent(request, reply) {
 
@@ -58,6 +56,8 @@ function setContent(request, reply){
         /**
          * @Todo Validar los campos del body
          * */
+
+
 
         let courseContentModel = new CourseContentModel(request.body);
         
