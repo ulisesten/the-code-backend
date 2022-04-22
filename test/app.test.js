@@ -1,15 +1,23 @@
-import server from '../server/app.js';
+import {server, db} from '../server/server.js';
 
-describe('Testing controllers', () => {
+
+describe('Courses', () => {
 
     it('Courses method=GET', () => {
 
         server.inject({
             method: 'GET',
-            url: '/api/courses',
+            url: 'http://0.0.0.0:8081/api/courses',
         })
         .then(res =>{
-            expect(res.statusCode).toBe(200)
+            try {
+
+                if( !res.statusCode ) throw new Error("No estatus code");
+                expect(res.statusCode).toEqual(200);
+
+            } catch(error) {
+                console.log(error);
+            }
         });
 
     });

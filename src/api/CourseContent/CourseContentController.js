@@ -10,6 +10,11 @@ const CourseContentController = (app, opts, done) => {
     done();
 }
 
+/**
+ * 
+ * @param {*} request 
+ * @param {*} reply 
+ */
 function getContent(request, reply) {
 
     try {
@@ -42,10 +47,7 @@ function setContent(request, reply){
         let courseContentModel = new CourseContentModel(request.body);
         
         courseContentModel.save((err, res) => {
-            if(err){
-                console.log("Error!!!!", err);
-                return
-            }
+            if(err) throw err
 
             reply.header('Content-Type', 'application/json; charset=utf-8');
         
@@ -55,6 +57,9 @@ function setContent(request, reply){
         });
 
     } catch ( error ){
+
+        reply.send({result: "Something went wrong!!"});
+        console.log(error);
 
     }
     
