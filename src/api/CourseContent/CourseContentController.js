@@ -2,18 +2,26 @@
 
 import CourseContentModel from "./CourseContentModel.js";
 
+/**
+ * 
+ * HTTP
+ * get
+ * post 
+ * put       
+ * delete
+ */
+
 const CourseContentController = (app, opts, done) => {
 
     app.get('/api/contents/:id', getContent);
     app.post('/api/contents/', setContent);
+    app.put('/api/contents/:id', updateContent);
 
     done();
 }
 
 /**
  * 
- * @param {*} request 
- * @param {*} reply 
  */
 function getContent(request, reply) {
 
@@ -44,6 +52,13 @@ function getContent(request, reply) {
 function setContent(request, reply){
     
     try {
+
+        /**
+         * @Todo Validar los campos del body
+         * */
+
+
+
         let courseContentModel = new CourseContentModel(request.body);
         
         courseContentModel.save((err, res) => {
@@ -56,13 +71,25 @@ function setContent(request, reply){
             });
         });
 
-    } catch ( error ){
+    } catch ( error ) {
 
         reply.send({result: "Something went wrong!!"});
         console.log(error);
 
     }
     
+}
+
+function updateContent(request, reply){
+
+    const id = request.params.id
+
+    reply.header('Content-Type', 'application/json; charset=utf-8');
+        
+    reply.send({
+        "result": "Se guardó correctamente"
+    });
+
 }
 
 export default CourseContentController;
