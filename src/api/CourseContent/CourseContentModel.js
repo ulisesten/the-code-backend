@@ -2,14 +2,15 @@ import mongoose from 'mongoose';
 
 const CourseContentModel = mongoose
                 .model('CourseContent',new mongoose.Schema({
-                    id: String,
-                    courseID: String,
+                    id: { type: String, unique: true},
+                    courseID: {type: String, required: true },
                     language: String,
-                    title: String,
+                    title: { type: String, required: true },
                     intro: String,
                     code: String,
                     video: String,
-                    conclusion: String
+                    conclusion: String,
+                    content: { type: String, required: true}
                 },{collection: 'CoursesContent'}));
 
 export default CourseContentModel;

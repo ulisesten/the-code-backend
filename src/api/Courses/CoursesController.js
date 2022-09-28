@@ -17,17 +17,15 @@ function getAllCourses(request, reply) {
         CourseModel.find(null, (err, doc) => {
             
             if(err) throw err;
-            if(!doc) throw new Error("No document found");
+            if(!doc) throw new Error("No doc");
             
             reply.header('Content-Type', 'application/json; charset=utf-8');
-            reply.send(doc);
+            reply.send({ result: doc, message: "" });
 
         });
     } catch ( error ) {
-
         console.log(error);
-        reply.send([]);
-
+        reply.send({result: 'Something went wrong!!!', message: ""});
     }
    
 }

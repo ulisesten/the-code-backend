@@ -1,29 +1,24 @@
 /**Ulisesten at March 27, 2022 */
 
+import { nanoid } from 'nanoid'
 import CourseContentModel from "./CourseContentModel.js";
-
-/**
- * 
- * HTTP
- * get
- * post 
- * put       
- * delete
- */
 
 const CourseContentController = (app, opts, done) => {
 
     app.get('/api/contents/:id', getContent);
-    app.post('/api/contents/', setContent);
-    app.put('/api/contents/:id', updateContent);
+    app.post('/api/contents', setContent);
 
     done();
 }
 
 /**
  * 
+ * @param {*} request 
+ * @param {*} reply 
  */
 function getContent(request, reply) {
+
+    let message = "";
 
     try {
 
@@ -35,15 +30,18 @@ function getContent(request, reply) {
             
             if(err) throw err
             
+            
+            if(!doc) message = "No hay resultados";
+            
             reply.header('Content-Type', 'application/json; charset=utf-8');
-            reply.send(doc);
+            reply.send({result: doc, message: message});
 
         });
 
     } catch( error ) {
 
         console.log('ContentController', error);
-        reply.send({result: "Something went wrong!"});
+        reply.send({result: "Something went wrong!", message: "Ocurrió un error inesperado"});
 
     }
     
@@ -52,13 +50,7 @@ function getContent(request, reply) {
 function setContent(request, reply){
     
     try {
-
-        /**
-         * @Todo Validar los campos del body
-         * */
-
-
-
+        request.body.id = nanoid();
         let courseContentModel = new CourseContentModel(request.body);
         
         courseContentModel.save((err, res) => {
@@ -66,30 +58,17 @@ function setContent(request, reply){
 
             reply.header('Content-Type', 'application/json; charset=utf-8');
         
-            reply.send({
-                "result": "Se guardó correctamente"
-            });
+            reply.send({ result: "Se guardó correctamente", message: "" });
+
         });
 
-    } catch ( error ) {
+    } catch ( error ){
 
-        reply.send({result: "Something went wrong!!"});
+        reply.send({ result: "Something went wrong!!",  message: ""});
         console.log(error);
 
     }
     
-}
-
-function updateContent(request, reply){
-
-    const id = request.params.id
-
-    reply.header('Content-Type', 'application/json; charset=utf-8');
-        
-    reply.send({
-        "result": "Se guardó correctamente"
-    });
-
 }
 
 export default CourseContentController;
