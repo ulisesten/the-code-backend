@@ -7,4 +7,9 @@
 - Mongoose
 
 ## Entry points
-- https://the-code-api.herokuapp.com/api/publications
+    test domain https://the-code-api.herokuapp.com
+
+- /api/publications
+- /api/courses
+- /api/syllabuss/:id
+- /api/contents/:id

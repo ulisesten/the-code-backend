@@ -6,7 +6,7 @@ import CourseContentModel from '../CourseContent/CourseContentModel.js';
 const SyllabusController = (app, opts, done) => {
 
     app.get('/api/syllabus/:id', getSyllabus);
-    app.post('/api/syllabus/:id', setSyllabus);
+    //app.post('/api/syllabus/:id', setSyllabus);
 
     done();
 }
@@ -22,7 +22,7 @@ function getSyllabus(request, reply){
         let query = {courseID: id};
 
 
-        CourseContentModel.find(query, '-content', (err, doc) => {
+        CourseContentModel.find(query, '-content -_id', (err, doc) => {
 
             if(err) throw err;
 

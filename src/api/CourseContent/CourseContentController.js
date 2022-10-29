@@ -41,7 +41,7 @@ function getContent(request, reply) {
     } catch( error ) {
 
         console.log('ContentController', error);
-        reply.send({result: "Something went wrong!", message: "Ocurrió un error inesperado"});
+        reply.send({result: "No content", message: "Ocurrió un error inesperado"});
 
     }
     
@@ -58,13 +58,13 @@ function setContent(request, reply){
 
             reply.header('Content-Type', 'application/json; charset=utf-8');
         
-            reply.send({ result: "Se guardó correctamente", message: "" });
+            reply.send({ result: true, message: "" });
 
         });
 
     } catch ( error ){
 
-        reply.send({ result: "Something went wrong!!",  message: ""});
+        reply.send({ result: false,  message: ""});
         console.log(error);
 
     }
