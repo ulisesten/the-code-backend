@@ -40,7 +40,7 @@ const getUser = (request, reply) => {
 
 const getToken = (request, reply) => {
     reply.header('Content-Type', 'application/json; charset=utf-8');
-    reply.send({result: {token: test123}, message: ""});
+    reply.send({result: {token: 'test123'}, message: ""});
 }
 
 const createUser = (request, reply) => {
