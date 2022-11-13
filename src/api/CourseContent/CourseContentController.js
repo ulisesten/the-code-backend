@@ -34,6 +34,7 @@ function getContent(request, reply) {
             if(!doc) message = "No hay resultados";
             
             reply.header('Content-Type', 'application/json; charset=utf-8');
+            
             reply.send({result: doc, message: message});
 
         });
