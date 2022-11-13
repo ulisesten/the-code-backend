@@ -6,7 +6,7 @@ const UserController = (app, opts, done) => {
     app.post('/api/user', createUser);
 
     //test
-    app.get('/api/token', getToken)
+    app.post('/api/token', getToken)
 
     done();
 }
