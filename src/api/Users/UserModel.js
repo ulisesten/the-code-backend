@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 import crypto from "crypto";
 
-const UserSchema = new mongoose.Schema({
+const UserModel = new mongoose.Schema({
+    userid: { type: String,
+      required: 'userid is required'
+    },
     name: {
       type: String,
       trim: true,
@@ -30,7 +33,7 @@ const UserSchema = new mongoose.Schema({
    * The password string that's provided by the user is not stored directly in the user
    * document. Instead, it is handled as a virtual field.
    */
-  UserSchema
+  UserModel
     .virtual('password')
     .set(function (password) {
       this._password = password;
@@ -46,7 +49,7 @@ const UserSchema = new mongoose.Schema({
    * user, we need to add custom validation logic and associate it with the hashed_password
    * field in the schema.
    */
-  UserSchema.path('hashed_password').validate(function (v) {
+  UserModel.path('hashed_password').validate(function (v) {
     if (this._password && this._password.length < 6) {
       this.invalidate('password', 'Password must be atleast 6 characters.');
     }
@@ -57,7 +60,7 @@ const UserSchema = new mongoose.Schema({
 
 
 
-  UserSchema.methods = {
+  UserModel.methods = {
     authenticate: function (plainText) {
       return this.encryptPassword(plainText) === this.hashed_password;
     },
@@ -76,4 +79,6 @@ const UserSchema = new mongoose.Schema({
       return Math.round(new Date().valueOf() * Math.random()) + '';
     },
   };
-  
+
+
+export default UserModel;
